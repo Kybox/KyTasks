@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskModel} from "../task.model";
+import {TaskService} from "../task.service";
 
 @Component({
   selector: 'app-tasks-list',
@@ -10,12 +11,15 @@ export class TasksListComponent implements OnInit {
 
   tasks: TaskModel[] = [];
 
-  constructor() { }
+  constructor(private taskService:TaskService) { }
 
   ngOnInit() {
-      this.tasks.push(new TaskModel(1, "task 1", true, "01/01/2019"));
-      this.tasks.push(new TaskModel(2, "task 2", true, "10/01/2019"));
-      this.tasks.push(new TaskModel(3, "task 3", true, "20/01/2019"));
+      return this.taskService.getTasks().subscribe(
+          (tasks:any[]) => {
+              this.tasks = tasks
+          },
+          (error) => console.log(error)
+      );
   }
 
   getDueDateLabel(task:TaskModel){
