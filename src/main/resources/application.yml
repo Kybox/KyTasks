@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    name: task
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
